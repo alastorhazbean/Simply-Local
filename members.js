@@ -53,6 +53,7 @@ const pronouns = document.createElement("p");
     membercard.style = "border-color: " + member.content.color + ";";
     img.src = "https://spaces.apparyllis.com/avatars/" + member.content.uid + "/" + member.content.avatarUuid
     img.style = "border-radius: 100%; height: 100px"
+    pronouns.textContent = member.content.pronouns
 
 membercard.appendChild(img);
 membercard.appendChild(name);
