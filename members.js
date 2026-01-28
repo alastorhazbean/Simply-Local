@@ -1,4 +1,4 @@
-let members;
+let genMembers;
 
 async function dbRW(func, name, content = null) {
   const db = await openDB();
@@ -38,9 +38,9 @@ async function load() {
   const enDBMembers = await dbRW("r", "members");
   if (typeof enDBMembers !== "string" || enDBMembers.length === 0) return;
   const dBMembers = atob(enDBMembers);
-  members = JSON.parse(dBMembers);
+  genMembers = JSON.parse(dBMembers);
   let i = 0
-  members.forEach(member => {
+  genMembers.forEach(member => {
 const membercard = document.createElement("div");
 const img = document.createElement("img");
 const name = document.createElement("p");

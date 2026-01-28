@@ -106,4 +106,30 @@ async function load() {
 };
 
 
+const socket = new WebSocket("wss://api.apparyllis.com/v1/socket");
+
+socket.onopen = () => {
+    console.log("Live connection established.")
+    socket.send(JSON.stringify({ op: "authenticate", token: atob(localStorage.Auth) }));
+    socket.send("ping")
+}
+socket.onmessage = (event) => {
+  console.log("Received:", event.data);
+};
+socket.onclose = () => {
+  console.log("Disconnected");
+  clearInterval(pingInterval);
+};
+async function closeConnection() {
+    socket.close(1000, "Function called")
+}
+
+
+const pingInterval = setInterval(() => {
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send("ping");
+  }
+}, 10000);
+
+
  document.addEventListener("DOMContentLoaded", load);
